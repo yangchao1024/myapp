@@ -1,0 +1,11 @@
+<h1>index</h1>
+<p>Welcome to11111</p>
+<p><%= title %></p>
+<p><%= title %></p>
+<% if (newsList.length) { %>
+<ul>
+    <% newsList.forEach(function(news){ %>
+    <%- partial("./partial/news", {news:news}) %>
+    <% }) %>
+</ul>
+<% } %>
