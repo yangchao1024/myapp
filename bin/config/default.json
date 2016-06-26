@@ -5,5 +5,12 @@
   "bll": {
     "url": "http://v.juhe.cn",
     "key": "1a0f1991f0a1e0d7a626ad3f588b3b5a"
-  }
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 9000
+    //,
+    //"password":""
+  },
+  "EnableRedis": true
 }

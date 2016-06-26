@@ -9,6 +9,8 @@ var partials = require('express-partials');
 var routes = require('./routes');
 var users = require('./routes/users');
 
+var redis = require('./common/myredis');
+
 var app = express();
 
 // view engine setup
@@ -26,6 +28,28 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+app.use(function (req, res, next) {
+    var rediskey = 'view' + req.originalUrl;
+    redis.exists(rediskey, function (err, exists) {
+        if (exists) {
+            redis.get(rediskey, function (err, value) {
+                if (value != null) {
+                    res.send(value);
+                    res.end();
+                }
+                else {
+                    redis.del(rediskey);
+                    next();
+                }
+
+            })
+        } else {
+            next();
+        }
+    });
+
+
+});
 app.use('/', routes);
 app.use('/users', users);
 
